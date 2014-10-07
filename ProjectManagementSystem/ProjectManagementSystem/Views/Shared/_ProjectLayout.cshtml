@@ -4,10 +4,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 @Html.ActionLink("Project Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
@@ -15,8 +16,20 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Details", "Details", "Project")</li>
-                    <li>@Html.ActionLink("Time", "Time", "Project")</li>
+                    <li>@Html.ActionLink("Project", "Index", "Project")</li>
+                    <li>@Html.ActionLink("Time", "Index", "Time")</li>
+                    <li>@Html.ActionLink("Requirements", "Index", "Requirement")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="navbar">
+        <div class="container">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Edit Details", "Details", "Project")</li>
+                    <li>@Html.ActionLink("Risks", "Risks", "Project")</li>
+                    <li>@Html.ActionLink("Team", "Team", "Project")</li>
                 </ul>
             </div>
         </div>
@@ -28,5 +41,8 @@
             <p>&copy; @DateTime.Now.Year - Project Management System</p>
         </footer>
     </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>
