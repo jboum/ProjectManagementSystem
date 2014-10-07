@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_ProjectLayout.cshtml";
+}
+
+<h2 class="h2">Details</h2>
+
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label for="ProjectName" class="col-sm-2 control-label">Name:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" name="ProjectName" id="ProjectName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ProjectOwner" class="col-sm-2 control-label">Owner:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" name="ProjectOwner" id="ProjectOwner" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ProjectDescription" class="control-label col-sm-2">Description:</label>
+        <div class="col-sm-8">
+            <textarea class="form-control" name="ProjectDescription" rows="8"></textarea>
+        </div>
+    </div>
+</form>
+
