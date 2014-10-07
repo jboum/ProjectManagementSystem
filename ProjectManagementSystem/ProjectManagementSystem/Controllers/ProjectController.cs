@@ -21,5 +21,9 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult Risks() {
             return View();
         }
+
+        public ActionResult Team() {
+            return View();
+        }
     }
 }
