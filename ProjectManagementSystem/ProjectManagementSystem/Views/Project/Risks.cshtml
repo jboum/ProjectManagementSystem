@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Risks";
+    Layout = "~/Views/Shared/_ProjectLayout.cshtml";
+}
+
+<h2>Risks</h2>
+<hr />
+<form class="form-horizontal" role="form">
+    <h3>Delete a Risk</h3>
+    <div class="form-group">
+        <label for="DeleteRisk" class="col-sm-2 control-label">Risk:</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="DeleteRisk" name="DeleteRisk">
+                <option value="1">Risk 1</option>
+                <option value="2">Risk 2</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-1">
+            <button type="submit" class="form-control" name="SubmitDelete">Delete</button>
+        </div>
+    </div>
+</form>
+<hr />
+<form class="form-horizontal" role="form">
+    <h3>Add a Risk</h3>
+    <div class="form-group">
+        <label for="RiskName" class="col-sm-2 control-label">Name:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" name="RiskName" id="RiskName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RiskDescription" class="control-label col-sm-2">Description:</label>
+        <div class="col-sm-8">
+            <textarea class="form-control" id="RiskDescription" name="RiskDescription" rows="8"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RiskSeverity" class="col-sm-2 control-label">Severity:</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="RiskSeverity" name="RiskSeverity">
+                <option value="1">Severity Level 1</option>
+                <option value="2">Severity Level 2</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-1">
+            <button type="submit" class="form-control" name="SubmitAdd">Add</button>
+        </div>
+    </div>
+</form>
+
