@@ -17,5 +17,9 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult Details() {
             return View();
         }
+
+        public ActionResult Risks() {
+            return View();
+        }
     }
 }
