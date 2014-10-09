@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Create a Requirement";
+    Layout = "~/Views/Shared/_ProjectLayout.cshtml";
+}
+
+
+<form class="form-horizontal" role="form">
+    <h3>Create a Requirement</h3>
+    <div class="form-group">
+        <label for="RequirementNumber" class="col-sm-2 control-label">Number:</label>
+        <div class="col-sm-1">
+            <input type="text" class="form-control" name="RequirementNumber" id="RequirementNumber" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RequirementName" class="col-sm-2 control-label">Name:</label>
+        <div class="col-sm-4">
+            <input type="text" class="form-control" name="RequirementName" id="RequirementName" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RequirementDescription" class="control-label col-sm-2">Description:</label>
+        <div class="col-sm-8">
+            <textarea class="form-control" id="RequirementDescription" name="RequirementDescription" rows="8"></textarea>
+        </div>
+    </div>
+    <div class="col-sm-offset-2">
+        <div class="radio">
+            <label>
+                <input type="radio" name="RequirementType" id="TypeFunctional" value="Functional" />
+                Functional Requirement
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="RequirementType" id="TypeNonfunctional" value="Nonfunctional" />
+                Nonfunctional Requirement
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-1">
+            <button type="submit" class="form-control" name="SubmitAdd">Create</button>
+        </div>
+    </div>
