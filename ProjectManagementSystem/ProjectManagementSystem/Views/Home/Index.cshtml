@@ -1,10 +1,18 @@
-﻿@{
+﻿@using ProjectManagementSystem.Models;
+@model IEnumerable<Project>
+
+@{
     ViewBag.Title = "Home Page";
 }
 
-<h2>Project list goes here.</h2>
+<h3>Projects</h3>
+@{
+    foreach (Project project in Model) {
+        <p>@Html.ActionLink(project.ProjectName, "Index", "Project", new {id = project.ProjectID}, null)</p>
+    }
+}
 
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form" action="~/Project/Create" method="post">
     <h3>Create a new Project</h3>
     <div class="form-group">
         <label for="ProjecName" class="col-sm-2 control-label">Project Name:</label>

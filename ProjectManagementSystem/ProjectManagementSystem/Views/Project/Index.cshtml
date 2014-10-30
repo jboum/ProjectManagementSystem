@@ -1,4 +1,6 @@
-﻿
+﻿@using ProjectManagementSystem.Models
+@model Project
+
 @{
     Layout = "~/Views/Shared/_ProjectLayout.cshtml";
     ViewBag.Title = "Project Home";
@@ -8,8 +10,8 @@
     @Html.Partial("_ProjectNavbar")
 }
 
-<h2>Project Name</h2>
+<h2>@Model.ProjectName</h2>
 <p>
-    Project description.
+    @Model.Description
 </p>
 
