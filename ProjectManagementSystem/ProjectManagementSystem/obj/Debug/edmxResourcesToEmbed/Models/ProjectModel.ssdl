@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbProjectMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="MemberID" />
+    </Key>
+    <Property Name="MemberID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="MemberName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone#" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Is_Male" Type="real" Nullable="false" />
+    <Property Name="Age" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PerformPerRequirement">
+    <Key>
+      <PropertyRef Name="RequirementID" />
+      <PropertyRef Name="MemberID" />
+      <PropertyRef Name="PhaseID" />
+    </Key>
+    <Property Name="RequirementID" Type="int" Nullable="false" />
+    <Property Name="MemberID" Type="int" Nullable="false" />
+    <Property Name="PhaseID" Type="int" Nullable="false" />
+    <Property Name="Hours" Type="float" />
+  </EntityType>
+  <EntityType Name="Phase">
+    <Key>
+      <PropertyRef Name="PhaseID" />
+    </Key>
+    <Property Name="PhaseID" Type="int" Nullable="false" />
+    <Property Name="PhaseName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="ProjectName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Requirement">
+    <Key>
+      <PropertyRef Name="RequirementID" />
+    </Key>
+    <Property Name="RequirementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="RequirementType" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Risk">
+    <Key>
+      <PropertyRef Name="RiskID" />
+    </Key>
+    <Property Name="RiskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectID" Type="int" Nullable="false" />
+    <Property Name="RiskName" Type="varchar" MaxLength="50" />
+    <Property Name="RiskDescription" Type="varchar(max)" />
+    <Property Name="RiskLevel" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Phone#" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Member_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="Member" Type="Self.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Member">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerformPerRequirement_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="PerformPerRequirement" Type="Self.PerformPerRequirement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MemberID" />
+      </Principal>
+      <Dependent Role="PerformPerRequirement">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerformPerRequirement_Phase">
+    <End Role="Phase" Type="Self.Phase" Multiplicity="1" />
+    <End Role="PerformPerRequirement" Type="Self.PerformPerRequirement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Phase">
+        <PropertyRef Name="PhaseID" />
+      </Principal>
+      <Dependent Role="PerformPerRequirement">
+        <PropertyRef Name="PhaseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PerformPerRequirement_Requirement">
+    <End Role="Requirement" Type="Self.Requirement" Multiplicity="1" />
+    <End Role="PerformPerRequirement" Type="Self.PerformPerRequirement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requirement">
+        <PropertyRef Name="RequirementID" />
+      </Principal>
+      <Dependent Role="PerformPerRequirement">
+        <PropertyRef Name="RequirementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Project_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Project" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Requirement_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="Requirement" Type="Self.Requirement" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Requirement">
+        <PropertyRef Name="RequirementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Risk_Project">
+    <End Role="Project" Type="Self.Project" Multiplicity="1" />
+    <End Role="Risk" Type="Self.Risk" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="ProjectID" />
+      </Principal>
+      <Dependent Role="Risk">
+        <PropertyRef Name="ProjectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbProjectMSModelStoreContainer">
+    <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PerformPerRequirement" EntityType="Self.PerformPerRequirement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phase" EntityType="Self.Phase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Requirement" EntityType="Self.Requirement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Risk" EntityType="Self.Risk" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Member_Project" Association="Self.FK_Member_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Member" EntitySet="Member" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerformPerRequirement_Member" Association="Self.FK_PerformPerRequirement_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="PerformPerRequirement" EntitySet="PerformPerRequirement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerformPerRequirement_Phase" Association="Self.FK_PerformPerRequirement_Phase">
+      <End Role="Phase" EntitySet="Phase" />
+      <End Role="PerformPerRequirement" EntitySet="PerformPerRequirement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PerformPerRequirement_Requirement" Association="Self.FK_PerformPerRequirement_Requirement">
+      <End Role="Requirement" EntitySet="Requirement" />
+      <End Role="PerformPerRequirement" EntitySet="PerformPerRequirement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Project_User" Association="Self.FK_Project_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Project" EntitySet="Project" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Requirement_Project" Association="Self.FK_Requirement_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Requirement" EntitySet="Requirement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Risk_Project" Association="Self.FK_Risk_Project">
+      <End Role="Project" EntitySet="Project" />
+      <End Role="Risk" EntitySet="Risk" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
