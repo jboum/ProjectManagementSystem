@@ -1,4 +1,6 @@
-﻿
+﻿@using ProjectManagementSystem.Models
+@model IEnumerable<Requirement>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_ProjectLayout.cshtml";
@@ -9,4 +11,11 @@
 }
 
 <h2>View Requirements</h2>
-
+<div class="container">
+@foreach (Requirement req in Model) {
+    <div class="row">
+        <div class="col-md-2">@req.RequirementID</div>
+        <div class="col-md-10">@req.Description</div>
+    </div>
+}
+</div>

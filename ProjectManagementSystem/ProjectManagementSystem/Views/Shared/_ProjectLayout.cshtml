@@ -16,9 +16,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Project", "Index", "Project")</li>
-                    <li>@Html.ActionLink("Time", "Index", "Time")</li>
-                    <li>@Html.ActionLink("Requirements", "Index", "Requirements")</li>
+                    <li>@Html.ActionLink("Project", "Index", "Project", new { id = ViewBag.ProjectId }, null)</li>
+                    <li>@Html.ActionLink("Time", "Index", "Time", new { id = ViewBag.ProjectId }, null)</li>
+                    <li>@Html.ActionLink("Requirements", "Index", "Requirements", new { id = ViewBag.ProjectId }, null)</li>
                 </ul>
             </div>
         </div>

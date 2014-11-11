@@ -12,6 +12,7 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult Index(int id)
         {
             var project = from p in projectDb.Projects where p.ProjectID == id select p;
+            ViewBag.ProjectId = id;
             return View(project.Single());
         }
 

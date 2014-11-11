@@ -4,8 +4,11 @@
     Layout = "~/Views/Shared/_ProjectLayout.cshtml";
 }
 
+@section SectionNav {
+    @Html.Partial("_RequirementsNavbar")
+}
 
-<form class="form-horizontal" role="form">
+@using(Html.BeginForm("Create", "Requirements", new { id = ViewBag.ProjectId }, FormMethod.Post, new { @class = "form-horizontal" })) {
     <h3>Create a Requirement</h3>
     <div class="form-group">
         <label for="RequirementNumber" class="col-sm-2 control-label">Number:</label>
@@ -44,3 +47,4 @@
             <button type="submit" class="form-control" name="SubmitAdd">Create</button>
         </div>
     </div>
+}
