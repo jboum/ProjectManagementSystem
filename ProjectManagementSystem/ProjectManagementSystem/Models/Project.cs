@@ -17,6 +17,7 @@ namespace ProjectManagementSystem.Models
         public Project()
         {
             this.Members = new HashSet<Member>();
+            this.Requirements = new HashSet<Requirement>();
             this.Risks = new HashSet<Risk>();
         }
     
@@ -27,7 +28,7 @@ namespace ProjectManagementSystem.Models
     
         public virtual ICollection<Member> Members { get; set; }
         public virtual User User { get; set; }
-        public virtual Requirement Requirement { get; set; }
+        public virtual ICollection<Requirement> Requirements { get; set; }
         public virtual ICollection<Risk> Risks { get; set; }
     }
 }
