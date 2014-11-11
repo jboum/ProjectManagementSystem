@@ -9,8 +9,6 @@
           <ScalarProperty Name="MemberName" ColumnName="MemberName" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Phone_" ColumnName="Phone#" />
-          <ScalarProperty Name="Is_Male" ColumnName="Is_Male" />
-          <ScalarProperty Name="Age" ColumnName="Age" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

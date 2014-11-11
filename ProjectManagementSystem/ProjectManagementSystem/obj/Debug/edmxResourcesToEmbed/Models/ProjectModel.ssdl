@@ -9,8 +9,6 @@
     <Property Name="MemberName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Phone#" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Is_Male" Type="real" Nullable="false" />
-    <Property Name="Age" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="PerformPerRequirement">
     <Key>

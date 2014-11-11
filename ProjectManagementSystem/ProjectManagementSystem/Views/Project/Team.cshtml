@@ -1,4 +1,7 @@
-﻿@{
+﻿@using ProjectManagementSystem.Models
+@model IEnumerable<Member>
+
+@{
     ViewBag.Title = "Team";
     Layout = "~/Views/Shared/_ProjectLayout.cshtml";
 }
@@ -14,14 +17,16 @@
         <th>Email</th>
         <th>Phone</th>
     </tr>
+@foreach (Member member in Model) {
     <tr>
-        <td>Bob Default</td>
-        <td>bdefault@example.com</td>
-        <td>555-555-5555</td>
+        <td>@member.MemberName</td>
+        <td>@member.Email</td>
+        <td>@member.Phone_</td>
     </tr>
+}
 </table>
 <hr />
-<form class="form-horizontal" role="form">
+@using (Html.BeginForm("AddMember", "Project", new { id = ViewBag.ProjectId }, FormMethod.Post, new { @class = "form-horizontal" })) {
     <h3>Add a Team Member</h3>
     <div class="form-group">
         <label for="MemberName" class="col-sm-2 control-label">Name:</label>
@@ -46,16 +51,17 @@
             <button type="submit" class="form-control" name="SubmitAdd">Add</button>
         </div>
     </div>
-</form>
+}
 <hr />
-<form class="form-horizontal" role="form">
+@using (Html.BeginForm("DeleteMember", "Project", new { id = ViewBag.ProjectId }, FormMethod.Post, new { @class = "form-horizontal" })) {
     <h3>Delete a Team Member</h3>
     <div class="form-group">
         <label for="MemberDeleted" class="col-sm-2 control-label">Member:</label>
         <div class="col-sm-4">
             <select class="form-control" id="MemberDeleted" name="MemberDeleted">
-                <option value="1">Member 1</option>
-                <option value="2">Member 2</option>
+                @foreach (Member member in Model) {
+                    <option value=@Convert.ToString(member.MemberID)>@member.MemberName</option>
+                }
             </select>
         </div>
     </div>
@@ -64,4 +70,4 @@
             <button type="submit" class="form-control" name="SubmitDelete">Delete</button>
         </div>
     </div>
-</form>
+}

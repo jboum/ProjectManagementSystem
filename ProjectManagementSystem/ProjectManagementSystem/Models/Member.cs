@@ -24,8 +24,6 @@ namespace ProjectManagementSystem.Models
         public string MemberName { get; set; }
         public string Email { get; set; }
         public string Phone_ { get; set; }
-        public float Is_Male { get; set; }
-        public string Age { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual ICollection<PerformPerRequirement> PerformPerRequirements { get; set; }

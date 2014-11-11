@@ -37,5 +37,25 @@ namespace ProjectManagementSystem.Controllers
             ViewBag.ProjectId = id;
             return RedirectToAction("Index", new { id = id });
         }
+
+        [HttpGet]
+        public ActionResult Edit(int id) {
+            var resultRequirement = from r in projectDb.Requirements where r.RequirementID == id select r;
+            Requirement req = resultRequirement.Single();
+
+            ViewBag.ProjectId = req.ProjectID;
+            return View(req);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(int id, string requirementDescription, string requirementType) {
+            var resultRequirement = from r in projectDb.Requirements where r.RequirementID == id select r;
+            Requirement req = resultRequirement.Single();
+            req.Description = requirementDescription;
+            req.RequirementType = requirementType;
+            projectDb.SaveChanges();
+
+            return RedirectToAction("Index", new { id = req.ProjectID });
+        }
     }
 }

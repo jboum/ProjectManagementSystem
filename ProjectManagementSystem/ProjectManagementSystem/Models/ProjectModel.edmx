@@ -14,8 +14,6 @@
           <Property Name="MemberName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone#" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Is_Male" Type="real" Nullable="false" />
-          <Property Name="Age" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="PerformPerRequirement">
           <Key>
@@ -221,8 +219,6 @@
           <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Phone_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Is_Male" Type="Single" Nullable="false" />
-          <Property Name="Age" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Project" Relationship="Self.FK_Member_Project" FromRole="Member" ToRole="Project" />
           <NavigationProperty Name="PerformPerRequirements" Relationship="Self.FK_PerformPerRequirement_Member" FromRole="Member" ToRole="PerformPerRequirement" />
         </EntityType>
@@ -442,8 +438,6 @@
                 <ScalarProperty Name="MemberName" ColumnName="MemberName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Phone_" ColumnName="Phone#" />
-                <ScalarProperty Name="Is_Male" ColumnName="Is_Male" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

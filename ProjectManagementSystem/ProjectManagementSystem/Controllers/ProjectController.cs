@@ -24,8 +24,33 @@ namespace ProjectManagementSystem.Controllers
             return View();
         }
 
-        public ActionResult Team() {
-            return View();
+        public ActionResult Team(int id) {
+            var teamResults = from m in projectDb.Members where m.ProjectID == id select m;
+
+            ViewBag.ProjectId = id;
+            return View(teamResults.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult AddMember(int id, string memberName, string memberEmail, string memberPhone) {
+            Member member = new Member();
+            member.ProjectID = id;
+            member.MemberName = memberName;
+            member.Email = memberEmail;
+            member.Phone_ = memberPhone;
+            projectDb.Members.Add(member);
+            projectDb.SaveChanges();
+
+            return RedirectToAction("Team", "Project", new { id = id });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteMember(int id, int memberDeleted) {
+            var memberResult = from m in projectDb.Members where m.MemberID == memberDeleted select m;
+            projectDb.Members.Remove(memberResult.Single());
+            projectDb.SaveChanges();
+
+            return RedirectToAction("Team", "Project", new { id = id });
         }
 
         [HttpPost]

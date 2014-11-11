@@ -1,0 +1,40 @@
+﻿@using ProjectManagementSystem.Models
+@model Requirement
+
+@{
+    ViewBag.Title = "Edit a Requirement";
+    Layout = "~/Views/Shared/_ProjectLayout.cshtml";
+}
+
+@section SectionNav {
+    @Html.Partial("_RequirementsNavbar")
+}
+
+<h2>Edit Requirement</h2>
+@using (Html.BeginForm("Edit", "Requirements", new { id = Model.RequirementID }, FormMethod.Post, new { @class = "form-horizontal" })) {
+    <div class="form-group">
+        <label for="RequirementDescription" class="control-label col-sm-2">Description:</label>
+        <div class="col-sm-8">
+            <textarea class="form-control" id="RequirementDescription" name="RequirementDescription" rows="8">@Model.Description</textarea>
+        </div>
+    </div>
+    <div class="col-sm-offset-2">
+        <div class="radio">
+            <label>
+                <input type="radio" name="RequirementType" id="TypeFunctional" value="Functional" checked=@Model.RequirementType.Equals("Functional").ToString()/>
+                Functional Requirement
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="RequirementType" id="TypeNonfunctional" value="Nonfunctional" checked=@Model.RequirementType.Equals("Nonfunctional").ToString()/>
+                Nonfunctional Requirement
+            </label>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-1">
+            <button type="submit" class="form-control" name="SubmitAdd">Save</button>
+        </div>
+    </div>
+}
