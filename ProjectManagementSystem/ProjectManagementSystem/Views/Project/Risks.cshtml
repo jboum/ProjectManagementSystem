@@ -1,5 +1,5 @@
 ﻿@using ProjectManagementSystem.Models;
-@model Project
+@model IEnumerable<Risk>
 
 @{
     ViewBag.Title = "Risks";
@@ -11,15 +11,30 @@
 }
 
 <h2>Risks</h2>
+<table class="table">
+    <tr>
+        <th>Risk</th>
+        <th>Severity</th>
+        <th>Description</th>
+    </tr>
+    @foreach (Risk risk in Model) {
+        <tr>
+            <td>@risk.RiskName</td>
+            <td>@risk.RiskLevel</td>
+            <td>@risk.RiskDescription</td>
+        </tr>
+    }
+</table>
 <hr />
-<form class="form-horizontal" role="form">
+@using(Html.BeginForm("DeleteRisk", "Project", new{id = ViewBag.ProjectId}, FormMethod.Post, new { @class = "form-horizontal"})) {
     <h3>Delete a Risk</h3>
     <div class="form-group">
         <label for="DeleteRisk" class="col-sm-2 control-label">Risk:</label>
         <div class="col-sm-4">
             <select class="form-control" id="DeleteRisk" name="DeleteRisk">
-                <option value="1">Risk 1</option>
-                <option value="2">Risk 2</option>
+                @foreach (Risk risk in Model) {
+                    <option value=@Convert.ToString(risk.RiskID)>@risk.RiskName</option>
+                }
             </select>
         </div>
     </div>
@@ -28,9 +43,9 @@
             <button type="submit" class="form-control" name="SubmitDelete">Delete</button>
         </div>
     </div>
-</form>
+}
 <hr />
-<form class="form-horizontal" role="form">
+@using(Html.BeginForm("AddRisk", "Project", new{id = ViewBag.ProjectId}, FormMethod.Post, new { @class = "form-horizontal"})) {
     <h3>Add a Risk</h3>
     <div class="form-group">
         <label for="RiskName" class="col-sm-2 control-label">Name:</label>
@@ -45,11 +60,12 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="RiskSeverity" class="col-sm-2 control-label">Severity:</label>
+        <label for="RiskLevel" class="col-sm-2 control-label">Severity:</label>
         <div class="col-sm-4">
-            <select class="form-control" id="RiskSeverity" name="RiskSeverity">
-                <option value="1">Severity Level 1</option>
-                <option value="2">Severity Level 2</option>
+            <select class="form-control" id="RiskLevel" name="RiskLevel">
+                <option value="Low" selected="selected">Low</option>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
             </select>
         </div>
     </div>
@@ -58,5 +74,5 @@
             <button type="submit" class="form-control" name="SubmitAdd">Add</button>
         </div>
     </div>
-</form>
+}
 

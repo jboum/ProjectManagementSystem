@@ -12,16 +12,57 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult Index(int id)
         {
             var project = from p in projectDb.Projects where p.ProjectID == id select p;
+
             ViewBag.ProjectId = id;
             return View(project.Single());
         }
 
-        public ActionResult Details() {
-            return View();
+        [HttpGet]
+        public ActionResult Details(int id) {
+            var projectResult = from p in projectDb.Projects where p.ProjectID == id select p;
+
+            ViewBag.ProjectId = id;
+            return View(projectResult.Single());
         }
 
-        public ActionResult Risks() {
-            return View();
+        [HttpPost]
+        public ActionResult Details(int id, string projectName, string projectDescription) {
+            var projectResult = from p in projectDb.Projects where p.ProjectID == id select p;
+            Project project = projectResult.Single();
+            project.ProjectName = projectName;
+            project.Description = projectDescription;
+            projectDb.SaveChanges();
+
+            return RedirectToAction("Index", "Project", new { id = id });
+        }
+
+        public ActionResult Risks(int id) {
+            var riskResults = from r in projectDb.Risks where r.ProjectID == id select r;
+
+            ViewBag.ProjectId = id;
+            return View(riskResults.ToList());
+        }
+
+        [HttpPost]
+        public ActionResult AddRisk(int id, string riskName, string riskDescription, string riskLevel) {
+            Risk risk = new Risk();
+            risk.RiskName = riskName;
+            risk.RiskDescription = riskDescription;
+            risk.RiskLevel = riskLevel;
+            risk.ProjectID = id;
+            projectDb.Risks.Add(risk);
+            projectDb.SaveChanges();
+
+            return RedirectToAction("Risks", "Project", new { id = id });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteRisk(int id, int deleteRisk) {
+            var riskResult = from r in projectDb.Risks where r.RiskID == deleteRisk select r;
+            projectDb.Risks.Remove(riskResult.Single());
+            projectDb.SaveChanges();
+
+            return RedirectToAction("Risks", "Project", new { id = id });
         }
 
         public ActionResult Team(int id) {
