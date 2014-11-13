@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using ProjectManagementSystem.Models;
+using System.Security.Claims;
+using System;
 
 namespace ProjectManagementSystem.Controllers
 {
+    [Authorize]
     public class ProjectController : Controller
     {
         private dbProjectMSEntities projectDb = new dbProjectMSEntities();
@@ -96,8 +99,12 @@ namespace ProjectManagementSystem.Controllers
 
         [HttpPost]
         public ActionResult Create(string ProjectName) {
+            ClaimsIdentity identity = (ClaimsIdentity) User.Identity;
+            int userId = Convert.ToInt32((identity.FindFirst("UserID").Value));
+            
             Project project = new Project();
             project.ProjectName = ProjectName;
+            project.UserID = userId;
             projectDb.Projects.Add(project);
             projectDb.SaveChanges();
 

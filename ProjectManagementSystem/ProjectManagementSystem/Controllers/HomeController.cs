@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProjectManagementSystem.Models;
+using System.Security.Claims;
 
 namespace ProjectManagementSystem.Controllers
 {
@@ -11,9 +12,14 @@ namespace ProjectManagementSystem.Controllers
     {
         private dbProjectMSEntities projectDb = new dbProjectMSEntities();
 
+        [Authorize]
         public ActionResult Index()
         {
-            var projects = from p in projectDb.Projects select p;
+            ClaimsIdentity identity = (ClaimsIdentity) User.Identity;
+            Claim userIdClaim = identity.FindFirst("UserID");
+            int userId = Convert.ToInt32(userIdClaim.Value);
+
+            var projects = from p in projectDb.Projects where p.UserID == userId select p;
             return View(projects.ToList());
         }
 
