@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Linq;
+using System;
 
 namespace ProjectManagementSystem.Models
 {
@@ -13,7 +15,10 @@ namespace ProjectManagementSystem.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
-            userIdentity.AddClaim(new Claim("UserId", "1"));
+            dbProjectMSEntities projectDb = new dbProjectMSEntities();
+            var userResult = from u in projectDb.Users where u.Email.Equals(Email) select u;
+            User user = userResult.Single();
+            userIdentity.AddClaim(new Claim("UserId", Convert.ToString(user.UserID)));
             return userIdentity;
         }
     }
