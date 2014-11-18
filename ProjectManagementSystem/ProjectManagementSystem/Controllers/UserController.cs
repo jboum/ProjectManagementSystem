@@ -11,10 +11,8 @@ using Microsoft.Owin.Security;
 using Owin;
 using ProjectManagementSystem.Models;
 
-namespace ProjectManagementSystem.Controllers
-{
-    public class UserController : Controller
-    {
+namespace ProjectManagementSystem.Controllers {
+    public class UserController : Controller {
         private ProjectUserManager userManager;
 
         public UserController() { }
@@ -69,6 +67,7 @@ namespace ProjectManagementSystem.Controllers
             user.Email = email;
 
             if (!password.Equals(confirmPassword)) {
+                ViewBag.ErrorName = "PasswordMismatch";
                 return View();
             }
 
@@ -80,8 +79,22 @@ namespace ProjectManagementSystem.Controllers
                 authManager.SignIn(new AuthenticationProperties() { IsPersistent = true }, await user.GenerateUserIdentityAsync(UserManager));
                 return RedirectToAction("Index", "Home");
             } else {
+                ViewBag.ErrorName = "RegisterFailed";
+                ViewBag.RegisterErrors = new List<string>();
+
+                foreach (string error in result.Errors) {
+                    ViewBag.RegisterErrors.Add(error);
+                }
+
                 return View();
             }
+        }
+
+        [Authorize]
+        public ActionResult Logout() {
+            IAuthenticationManager authManager = HttpContext.GetOwinContext().Authentication;
+            authManager.SignOut();
+            return RedirectToAction("Login", "User");
         }
     }
 }

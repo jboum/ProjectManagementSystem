@@ -99,16 +99,21 @@ namespace ProjectManagementSystem.Controllers
 
         [HttpPost]
         public ActionResult Create(string ProjectName) {
-            ClaimsIdentity identity = (ClaimsIdentity) User.Identity;
-            string userId = identity.FindFirst("UserId").Value;
+            int userId = GetUserId();
             
             Project project = new Project();
             project.ProjectName = ProjectName;
-            project.UserID = Convert.ToInt32(userId);
+            project.UserID = userId;
             projectDb.Projects.Add(project);
             projectDb.SaveChanges();
 
             return RedirectToAction("Index", "Project", new { id = project.ProjectID });
+        }
+
+        private int GetUserId() {
+            ClaimsIdentity identity = (ClaimsIdentity) User.Identity;
+            string userId = identity.FindFirst("UserId").Value;
+            return Convert.ToInt32(userId);
         }
     }
 }
