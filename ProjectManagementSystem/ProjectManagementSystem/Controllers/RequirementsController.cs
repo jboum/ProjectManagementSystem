@@ -60,5 +60,15 @@ namespace ProjectManagementSystem.Controllers
 
             return RedirectToAction("Index", new { id = req.ProjectID });
         }
+
+        [HttpPost]
+        public ActionResult Delete(int deleteRequirement) {
+            var resultRequirement = from r in projectDb.Requirements where r.RequirementID == deleteRequirement select r;
+            Requirement req = resultRequirement.Single();
+            projectDb.Requirements.Remove(req);
+            projectDb.SaveChanges();
+
+            return RedirectToAction("Index", new { id = req.ProjectID });
+        }
     }
 }
