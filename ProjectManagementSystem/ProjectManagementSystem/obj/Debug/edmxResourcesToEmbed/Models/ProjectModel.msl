@@ -43,6 +43,7 @@
     <EntitySetMapping Name="Requirements">
       <EntityTypeMapping TypeName="ProjectManagementSystem.Models.Requirement">
         <MappingFragment StoreEntitySet="Requirement">
+          <ScalarProperty Name="Number" ColumnName="Number" />
           <ScalarProperty Name="RequirementID" ColumnName="RequirementID" />
           <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           <ScalarProperty Name="RequirementType" ColumnName="RequirementType" />

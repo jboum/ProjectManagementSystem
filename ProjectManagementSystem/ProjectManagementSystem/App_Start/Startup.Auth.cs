@@ -33,7 +33,7 @@ namespace ProjectManagementSystem
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ProjectUserManager, ProjectManagerUser, int>(
                         TimeSpan.FromMinutes(30),
                         (manager, user) => user.GenerateUserIdentityAsync(manager),
-                        (identity) => Convert.ToInt32(identity.FindFirst("UserId")))
+                        (identity) => Convert.ToInt32(identity.FindFirst("UserId").Value))
                 }
             });
             

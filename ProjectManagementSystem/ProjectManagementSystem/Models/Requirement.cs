@@ -23,6 +23,7 @@ namespace ProjectManagementSystem.Models
         public int ProjectID { get; set; }
         public string RequirementType { get; set; }
         public string Description { get; set; }
+        public string Number { get; set; }
     
         public virtual ICollection<PerformPerRequirement> PerformPerRequirements { get; set; }
         public virtual Project Project { get; set; }

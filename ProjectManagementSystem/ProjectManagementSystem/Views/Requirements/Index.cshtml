@@ -14,7 +14,7 @@
 <div class="container">
 @foreach (Requirement req in Model) {
     <div class="row">
-        <div class="col-md-1">@req.RequirementID</div>
+        <div class="col-md-1">@req.Number</div>
         <div class="col-md-1">@req.RequirementType</div>
         <div class="col-md-8">@req.Description</div>
         <div class="col-md-2">@Html.ActionLink("Edit", "Edit", "Requirements", new { id = req.RequirementID }, null)</div>

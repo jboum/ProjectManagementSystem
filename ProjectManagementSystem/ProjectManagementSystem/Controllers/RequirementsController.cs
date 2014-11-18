@@ -14,7 +14,7 @@ namespace ProjectManagementSystem.Controllers
         // GET: Requirements
         public ActionResult Index(int id)
         {
-            var resultRequirements = from req in projectDb.Requirements where req.ProjectID == id select req;
+            var resultRequirements = from req in projectDb.Requirements where req.ProjectID == id orderby req.Number ascending select req;
             ViewBag.ProjectId = id;
             return View(resultRequirements.ToList());
         }
@@ -26,11 +26,13 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(int id, string requirementNumber, string requirementName, string requirementDescription, string requirementType) {
-            Requirement req = new Requirement();
-            req.ProjectID = id;
-            req.RequirementType = requirementType;
-            req.Description = requirementDescription;
+        public ActionResult Create(int id, string requirementNumber, string requirementDescription, string requirementType) {
+            Requirement req = new Requirement() {
+                ProjectID = id,
+                Number = requirementNumber,
+                Description = requirementDescription,
+                RequirementType = requirementType
+            };
             projectDb.Requirements.Add(req);
             projectDb.SaveChanges();
 
@@ -48,9 +50,10 @@ namespace ProjectManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, string requirementDescription, string requirementType) {
+        public ActionResult Edit(int id, string requirementNumber, string requirementDescription, string requirementType) {
             var resultRequirement = from r in projectDb.Requirements where r.RequirementID == id select r;
             Requirement req = resultRequirement.Single();
+            req.Number = requirementNumber;
             req.Description = requirementDescription;
             req.RequirementType = requirementType;
             projectDb.SaveChanges();

@@ -76,7 +76,7 @@ namespace ProjectManagementSystem.Controllers {
             if (result.Succeeded) {
                 IAuthenticationManager authManager = HttpContext.GetOwinContext().Authentication;
                 authManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                authManager.SignIn(new AuthenticationProperties() { IsPersistent = true }, await user.GenerateUserIdentityAsync(UserManager));
+                authManager.SignIn(new AuthenticationProperties() { IsPersistent = false }, await user.GenerateUserIdentityAsync(UserManager));
                 return RedirectToAction("Index", "Home");
             } else {
                 ViewBag.ErrorName = "RegisterFailed";

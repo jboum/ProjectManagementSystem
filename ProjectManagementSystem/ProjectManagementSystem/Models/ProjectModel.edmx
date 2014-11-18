@@ -50,6 +50,7 @@
           <Property Name="ProjectID" Type="int" Nullable="false" />
           <Property Name="RequirementType" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Number" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Risk">
           <Key>
@@ -266,6 +267,7 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PerformPerRequirements" Relationship="Self.FK_PerformPerRequirement_Requirement" FromRole="Requirement" ToRole="PerformPerRequirement" />
           <NavigationProperty Name="Project" Relationship="Self.FK_Requirement_Project" FromRole="Requirement" ToRole="Project" />
+          <Property Name="Number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Risk">
           <Key>
@@ -471,6 +473,7 @@
           <EntitySetMapping Name="Requirements">
             <EntityTypeMapping TypeName="ProjectManagementSystem.Models.Requirement">
               <MappingFragment StoreEntitySet="Requirement">
+                <ScalarProperty Name="Number" ColumnName="Number" />
                 <ScalarProperty Name="RequirementID" ColumnName="RequirementID" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="RequirementType" ColumnName="RequirementType" />

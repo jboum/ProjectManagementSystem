@@ -17,13 +17,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="RequirementName" class="col-sm-2 control-label">Name:</label>
-        <div class="col-sm-4">
-            <input type="text" class="form-control" name="RequirementName" id="RequirementName" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="RequirementDescription" class="control-label col-sm-2">Description:</label>
+        <label for="RequirementDescription" class="control-label col-sm-2">Requirement:</label>
         <div class="col-sm-8">
             <textarea class="form-control" id="RequirementDescription" name="RequirementDescription" rows="8"></textarea>
         </div>
@@ -31,13 +25,13 @@
     <div class="col-sm-offset-2">
         <div class="radio">
             <label>
-                <input type="radio" name="RequirementType" id="TypeFunctional" value="Functional" />
+                @Html.RadioButton("RequirementType", "Functional", true, null)
                 Functional Requirement
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" name="RequirementType" id="TypeNonfunctional" value="Nonfunctional" />
+                @Html.RadioButton("RequirementType", "Nonunctional", false, null)
                 Nonfunctional Requirement
             </label>
         </div>

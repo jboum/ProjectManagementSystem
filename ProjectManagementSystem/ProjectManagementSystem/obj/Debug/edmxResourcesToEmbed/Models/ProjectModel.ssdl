@@ -45,6 +45,7 @@
     <Property Name="ProjectID" Type="int" Nullable="false" />
     <Property Name="RequirementType" Type="varchar" MaxLength="50" />
     <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Number" Type="varchar" MaxLength="30" />
   </EntityType>
   <EntityType Name="Risk">
     <Key>
