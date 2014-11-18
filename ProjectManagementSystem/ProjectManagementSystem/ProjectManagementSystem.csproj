@@ -158,12 +158,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\ProjectUserManager.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\RequirementsController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DatabaseQueries\DBQuery.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,6 +184,7 @@
     <Compile Include="Models\Project.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProjectManagerUser.cs" />
     <Compile Include="Models\ProjectModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -197,6 +200,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProjectModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProjectUserStore.cs" />
     <Compile Include="Models\Requirement.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
@@ -298,6 +302,8 @@
     <Content Include="Views\Shared\_RequirementsNavbar.cshtml" />
     <Content Include="Views\Requirements\Create.cshtml" />
     <Content Include="Views\Requirements\Edit.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -309,6 +315,7 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

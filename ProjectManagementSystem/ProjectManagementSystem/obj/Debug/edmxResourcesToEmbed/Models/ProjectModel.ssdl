@@ -74,7 +74,7 @@
     <Property Name="UserName" Type="varchar" MaxLength="50" />
     <Property Name="Email" Type="varchar" MaxLength="50" />
     <Property Name="Phone#" Type="varchar" MaxLength="50" />
-    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="100" />
   </EntityType>
   <Association Name="FK_Member_Project">
     <End Role="Project" Type="Self.Project" Multiplicity="1" />

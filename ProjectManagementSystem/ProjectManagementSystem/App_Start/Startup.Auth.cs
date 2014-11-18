@@ -17,8 +17,9 @@ namespace ProjectManagementSystem
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context and user manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            //app.CreatePerOwinContext(ApplicationDbContext.Create);
+            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ProjectUserManager>(ProjectUserManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -26,12 +27,13 @@ namespace ProjectManagementSystem
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                LoginPath = new PathString("/User/Login"),
                 Provider = new CookieAuthenticationProvider
                 {
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                        validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ProjectUserManager, ProjectManagerUser, int>(
+                        TimeSpan.FromMinutes(30),
+                        (manager, user) => user.GenerateUserIdentityAsync(manager),
+                        (identity) => Convert.ToInt32(identity.FindFirst("UserId")))
                 }
             });
             

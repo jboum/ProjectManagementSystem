@@ -100,11 +100,11 @@ namespace ProjectManagementSystem.Controllers
         [HttpPost]
         public ActionResult Create(string ProjectName) {
             ClaimsIdentity identity = (ClaimsIdentity) User.Identity;
-            int userId = Convert.ToInt32((identity.FindFirst("UserID").Value));
+            string userId = identity.FindFirst("UserId").Value;
             
             Project project = new Project();
             project.ProjectName = ProjectName;
-            project.UserID = userId;
+            project.UserID = Convert.ToInt32(userId);
             projectDb.Projects.Add(project);
             projectDb.SaveChanges();
 

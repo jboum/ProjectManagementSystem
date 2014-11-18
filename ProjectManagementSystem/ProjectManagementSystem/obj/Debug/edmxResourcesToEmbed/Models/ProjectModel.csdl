@@ -87,7 +87,7 @@
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Phone_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Projects" Relationship="Self.FK_Project_User" FromRole="User" ToRole="Project" />
   </EntityType>
   <Association Name="FK_Member_Project">
