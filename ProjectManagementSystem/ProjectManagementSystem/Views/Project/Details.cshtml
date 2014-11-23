@@ -12,7 +12,7 @@
 
 <h2 class="h2">Details</h2>
 
-@using(Html.BeginForm("Details", "Project", new{id = ViewBag.ProjectId}, FormMethod.Post, new { @class = "form-horizontal"})) {
+@using(Html.BeginForm("Details", "Project", new {id = ViewBag.ProjectId}, FormMethod.Post, new {@class = "form-horizontal"})) {
     <div class="form-group">
         <label for="ProjectName" class="col-sm-2 control-label">Name:</label>
         <div class="col-sm-4">
