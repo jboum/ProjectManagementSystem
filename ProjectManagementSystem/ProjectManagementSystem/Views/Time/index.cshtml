@@ -1,0 +1,47 @@
+﻿@{
+    Layout = "~/Views/Shared/_Projectlayout.cshtml";
+
+    ViewBag.Title = "Time Log";
+}
+
+@section SectionNav {
+    @Html.Partial("_TimeNavbar");
+}
+
+
+    <div class="form-group">
+    <table>
+        <tr>
+            <td> <label class="col-sm-2 control-label"> Phase</label></td>
+            <td>
+                <select class=" form-control" ">
+                    <option> Requirements Analysis  </option>
+                    <option> Design</option>
+                    <option> Coding </option>
+                    <option> Testing </option>
+                    <option> Project Management </option>
+                </select>
+            </td>
+
+        </tr>
+        <tr>
+            <td> <label class="col-sm-2 control-label"> Requirement N&deg;</label></td>
+            <td>
+                <select class="form-control">
+                    <option> 1</option>
+                    <option> 2</option>
+                    <option> 3</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td> <label class="col-sm-2 control-label"> Hours Spent</label></td>
+            <td> <input type="text" name="hours" class="form-control" /></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"> <button type="submit" class="form-control"> Log </button> </td>
+        </tr>
+    </table>
+</div>
+

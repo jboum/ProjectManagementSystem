@@ -165,6 +165,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\RequirementsController.cs" />
+    <Compile Include="Controllers\TimeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DatabaseQueries\DBQuery.cs" />
     <Compile Include="Global.asax.cs">
@@ -304,6 +305,9 @@
     <Content Include="Views\Requirements\Edit.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\Time\Index.cshtml" />
+    <Content Include="Views\Shared\_TimeNavbar.cshtml" />
+    <Content Include="Views\Time\TimeTotals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
