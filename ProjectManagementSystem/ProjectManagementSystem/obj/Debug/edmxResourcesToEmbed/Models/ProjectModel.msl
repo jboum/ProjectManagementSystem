@@ -41,17 +41,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Risks">
-      <EntityTypeMapping TypeName="ProjectManagementSystem.Models.Risk">
-        <MappingFragment StoreEntitySet="Risk">
-          <ScalarProperty Name="RiskID" ColumnName="RiskID" />
-          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-          <ScalarProperty Name="RiskName" ColumnName="RiskName" />
-          <ScalarProperty Name="RiskDescription" ColumnName="RiskDescription" />
-          <ScalarProperty Name="RiskLevel" ColumnName="RiskLevel" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="ProjectManagementSystem.Models.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -81,6 +70,34 @@
           <ScalarProperty Name="PhaseID" ColumnName="PhaseID" />
           <ScalarProperty Name="RequirementID" ColumnName="RequirementID" />
           <ScalarProperty Name="HoursID" ColumnName="HoursID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RiskLevels">
+      <EntityTypeMapping TypeName="ProjectManagementSystem.Models.RiskLevel">
+        <MappingFragment StoreEntitySet="RiskLevel">
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="RiskLevelID" ColumnName="RiskLevelID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Risks">
+      <EntityTypeMapping TypeName="ProjectManagementSystem.Models.Risk">
+        <MappingFragment StoreEntitySet="Risk">
+          <ScalarProperty Name="RiskStatusID" ColumnName="RiskStatusID" />
+          <ScalarProperty Name="RiskLevelID" ColumnName="RiskLevelID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="RiskID" ColumnName="RiskID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RiskStatus">
+      <EntityTypeMapping TypeName="ProjectManagementSystem.Models.RiskStatus">
+        <MappingFragment StoreEntitySet="RiskStatus">
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="RiskStatusID" ColumnName="RiskStatusID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

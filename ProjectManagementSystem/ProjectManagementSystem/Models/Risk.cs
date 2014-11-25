@@ -16,10 +16,13 @@ namespace ProjectManagementSystem.Models
     {
         public int RiskID { get; set; }
         public int ProjectID { get; set; }
-        public string RiskName { get; set; }
-        public string RiskDescription { get; set; }
-        public string RiskLevel { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int RiskLevelID { get; set; }
+        public int RiskStatusID { get; set; }
     
         public virtual Project Project { get; set; }
+        public virtual RiskLevel RiskLevel { get; set; }
+        public virtual RiskStatus RiskStatus { get; set; }
     }
 }

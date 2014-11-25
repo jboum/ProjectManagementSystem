@@ -41,18 +41,27 @@ namespace ProjectManagementSystem.Controllers
 
         public ActionResult Risks(int id) {
             var riskResults = from r in projectDb.Risks where r.ProjectID == id select r;
+            var levelResults = from l in projectDb.RiskLevels select l;
+            var statusResults = from s in projectDb.RiskStatus select s;
+            RiskModel model = new RiskModel() {
+                Risks = riskResults.ToList(),
+                Levels = levelResults.ToList(),
+                Statuses = statusResults.ToList()
+            };
 
             ViewBag.ProjectId = id;
-            return View(riskResults.ToList());
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult AddRisk(int id, string riskName, string riskDescription, string riskLevel) {
-            Risk risk = new Risk();
-            risk.RiskName = riskName;
-            risk.RiskDescription = riskDescription;
-            risk.RiskLevel = riskLevel;
-            risk.ProjectID = id;
+        public ActionResult AddRisk(int id, string riskName, string riskDescription, int riskLevelId, int riskStatusId) {
+            Risk risk = new Risk() {
+                ProjectID = id,
+                Name = riskName,
+                Description = riskDescription,
+                RiskLevelID = riskLevelId,
+                RiskStatusID = riskStatusId
+            };
             projectDb.Risks.Add(risk);
             projectDb.SaveChanges();
 

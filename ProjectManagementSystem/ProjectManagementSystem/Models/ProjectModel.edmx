@@ -56,9 +56,24 @@
           </Key>
           <Property Name="RiskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ProjectID" Type="int" Nullable="false" />
-          <Property Name="RiskName" Type="varchar" MaxLength="50" />
-          <Property Name="RiskDescription" Type="varchar(max)" />
-          <Property Name="RiskLevel" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="RiskLevelID" Type="int" Nullable="false" />
+          <Property Name="RiskStatusID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RiskLevel">
+          <Key>
+            <PropertyRef Name="RiskLevelID" />
+          </Key>
+          <Property Name="RiskLevelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RiskStatus">
+          <Key>
+            <PropertyRef Name="RiskStatusID" />
+          </Key>
+          <Property Name="RiskStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -147,7 +162,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Risk_Project">
-          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="Project" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Risk" Type="Self.Risk" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Project">
@@ -158,6 +175,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Risk_ToRiskLevel">
+          <End Role="RiskLevel" Type="Self.RiskLevel" Multiplicity="1" />
+          <End Role="Risk" Type="Self.Risk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiskLevel">
+              <PropertyRef Name="RiskLevelID" />
+            </Principal>
+            <Dependent Role="Risk">
+              <PropertyRef Name="RiskLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Risk_ToRiskStatus">
+          <End Role="RiskStatus" Type="Self.RiskStatus" Multiplicity="1" />
+          <End Role="Risk" Type="Self.Risk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiskStatus">
+              <PropertyRef Name="RiskStatusID" />
+            </Principal>
+            <Dependent Role="Risk">
+              <PropertyRef Name="RiskStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ProjectManagementSystemModelsStoreContainer">
           <EntitySet Name="Hours" EntityType="Self.Hours" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
@@ -165,6 +206,8 @@
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requirement" EntityType="Self.Requirement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Risk" EntityType="Self.Risk" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RiskLevel" EntityType="Self.RiskLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RiskStatus" EntityType="Self.RiskStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Hours_ToPhase" Association="Self.FK_Hours_ToPhase">
@@ -189,6 +232,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_Risk_Project" Association="Self.FK_Risk_Project">
             <End Role="Project" EntitySet="Project" />
+            <End Role="Risk" EntitySet="Risk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Risk_ToRiskLevel" Association="Self.FK_Risk_ToRiskLevel">
+            <End Role="RiskLevel" EntitySet="RiskLevel" />
+            <End Role="Risk" EntitySet="Risk" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Risk_ToRiskStatus" Association="Self.FK_Risk_ToRiskStatus">
+            <End Role="RiskStatus" EntitySet="RiskStatus" />
             <End Role="Risk" EntitySet="Risk" />
           </AssociationSet>
         </EntityContainer>
@@ -226,7 +277,7 @@
           <NavigationProperty Name="Members" Relationship="Self.FK_Member_Project" FromRole="Project" ToRole="Member" />
           <NavigationProperty Name="User" Relationship="Self.FK_Project_User" FromRole="Project" ToRole="User" />
           <NavigationProperty Name="Requirements" Relationship="Self.FK_Requirement_Project" FromRole="Project" ToRole="Requirement" />
-          <NavigationProperty Name="Risks" Relationship="Self.FK_Risk_Project" FromRole="Project" ToRole="Risk" />
+          <NavigationProperty Name="Risks" Relationship="ProjectManagementSystem.Models.FK_Risk_Project" FromRole="Project" ToRole="Risk" />
         </EntityType>
         <EntityType Name="Requirement">
           <Key>
@@ -239,17 +290,6 @@
           <NavigationProperty Name="Project" Relationship="Self.FK_Requirement_Project" FromRole="Requirement" ToRole="Project" />
           <Property Name="Number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Hours" Relationship="ProjectManagementSystem.Models.FK_Hours_ToRequirement" FromRole="Requirement" ToRole="Hour" />
-        </EntityType>
-        <EntityType Name="Risk">
-          <Key>
-            <PropertyRef Name="RiskID" />
-          </Key>
-          <Property Name="RiskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProjectID" Type="Int32" Nullable="false" />
-          <Property Name="RiskName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="RiskDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="RiskLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Project" Relationship="Self.FK_Risk_Project" FromRole="Risk" ToRole="Project" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -310,24 +350,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Risk_Project">
-          <End Role="Project" Type="Self.Project" Multiplicity="1" />
-          <End Role="Risk" Type="Self.Risk" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Project">
-              <PropertyRef Name="ProjectID" />
-            </Principal>
-            <Dependent Role="Risk">
-              <PropertyRef Name="ProjectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="dbProjectMSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Members" EntityType="Self.Member" />
           <EntitySet Name="Phases" EntityType="Self.Phase" />
           <EntitySet Name="Projects" EntityType="Self.Project" />
           <EntitySet Name="Requirements" EntityType="Self.Requirement" />
-          <EntitySet Name="Risks" EntityType="Self.Risk" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Member_Project" Association="Self.FK_Member_Project">
@@ -342,10 +369,6 @@
             <End Role="Project" EntitySet="Projects" />
             <End Role="Requirement" EntitySet="Requirements" />
           </AssociationSet>
-          <AssociationSet Name="FK_Risk_Project" Association="Self.FK_Risk_Project">
-            <End Role="Project" EntitySet="Projects" />
-            <End Role="Risk" EntitySet="Risks" />
-          </AssociationSet>
           <EntitySet Name="Hours" EntityType="ProjectManagementSystem.Models.Hour" />
           <AssociationSet Name="FK_Hours_ToPhase" Association="ProjectManagementSystem.Models.FK_Hours_ToPhase">
             <End Role="Phase" EntitySet="Phases" />
@@ -355,7 +378,22 @@
             <End Role="Requirement" EntitySet="Requirements" />
             <End Role="Hour" EntitySet="Hours" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="RiskLevels" EntityType="ProjectManagementSystem.Models.RiskLevel" />
+          <EntitySet Name="Risks" EntityType="ProjectManagementSystem.Models.Risk" />
+          <AssociationSet Name="FK_Risk_Project" Association="ProjectManagementSystem.Models.FK_Risk_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Risk" EntitySet="Risks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Risk_ToRiskLevel" Association="ProjectManagementSystem.Models.FK_Risk_ToRiskLevel">
+            <End Role="RiskLevel" EntitySet="RiskLevels" />
+            <End Role="Risk" EntitySet="Risks" />
+          </AssociationSet>
+          <EntitySet Name="RiskStatus" EntityType="ProjectManagementSystem.Models.RiskStatus" />
+          <AssociationSet Name="FK_Risk_ToRiskStatus" Association="ProjectManagementSystem.Models.FK_Risk_ToRiskStatus">
+            <End Role="RiskStatus" EntitySet="RiskStatus" />
+            <End Role="Risk" EntitySet="Risks" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Hour">
           <Key>
             <PropertyRef Name="HoursID" />
@@ -395,7 +433,75 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="RiskLevel">
+          <Key>
+            <PropertyRef Name="RiskLevelID" />
+          </Key>
+          <Property Name="RiskLevelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Risks" Relationship="ProjectManagementSystem.Models.FK_Risk_ToRiskLevel" FromRole="RiskLevel" ToRole="Risk" />
+        </EntityType>
+        <EntityType Name="Risk">
+          <Key>
+            <PropertyRef Name="RiskID" />
+          </Key>
+          <Property Name="RiskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RiskLevelID" Type="Int32" Nullable="false" />
+          <Property Name="RiskStatusID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="ProjectManagementSystem.Models.FK_Risk_Project" FromRole="Risk" ToRole="Project" />
+          <NavigationProperty Name="RiskLevel" Relationship="ProjectManagementSystem.Models.FK_Risk_ToRiskLevel" FromRole="Risk" ToRole="RiskLevel" />
+          <NavigationProperty Name="RiskStatus" Relationship="ProjectManagementSystem.Models.FK_Risk_ToRiskStatus" FromRole="Risk" ToRole="RiskStatus" />
+        </EntityType>
+        <Association Name="FK_Risk_Project">
+          <End Type="ProjectManagementSystem.Models.Project" Role="Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ProjectManagementSystem.Models.Risk" Role="Risk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Risk">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Risk_ToRiskLevel">
+          <End Type="ProjectManagementSystem.Models.RiskLevel" Role="RiskLevel" Multiplicity="1" />
+          <End Type="ProjectManagementSystem.Models.Risk" Role="Risk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiskLevel">
+              <PropertyRef Name="RiskLevelID" />
+            </Principal>
+            <Dependent Role="Risk">
+              <PropertyRef Name="RiskLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RiskStatus">
+          <Key>
+            <PropertyRef Name="RiskStatusID" />
+          </Key>
+          <Property Name="RiskStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Risk" Relationship="ProjectManagementSystem.Models.FK_Risk_ToRiskStatus" FromRole="RiskStatus" ToRole="Risk" />
+        </EntityType>
+        <Association Name="FK_Risk_ToRiskStatus">
+          <End Type="ProjectManagementSystem.Models.RiskStatus" Role="RiskStatus" Multiplicity="1" />
+          <End Type="ProjectManagementSystem.Models.Risk" Role="Risk" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiskStatus">
+              <PropertyRef Name="RiskStatusID" />
+            </Principal>
+            <Dependent Role="Risk">
+              <PropertyRef Name="RiskStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -441,17 +547,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Risks">
-            <EntityTypeMapping TypeName="ProjectManagementSystem.Models.Risk">
-              <MappingFragment StoreEntitySet="Risk">
-                <ScalarProperty Name="RiskID" ColumnName="RiskID" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="RiskName" ColumnName="RiskName" />
-                <ScalarProperty Name="RiskDescription" ColumnName="RiskDescription" />
-                <ScalarProperty Name="RiskLevel" ColumnName="RiskLevel" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="ProjectManagementSystem.Models.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -484,6 +579,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RiskLevels">
+            <EntityTypeMapping TypeName="ProjectManagementSystem.Models.RiskLevel">
+              <MappingFragment StoreEntitySet="RiskLevel">
+                <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+                <ScalarProperty Name="RiskLevelID" ColumnName="RiskLevelID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Risks">
+            <EntityTypeMapping TypeName="ProjectManagementSystem.Models.Risk">
+              <MappingFragment StoreEntitySet="Risk">
+                <ScalarProperty Name="RiskStatusID" ColumnName="RiskStatusID" />
+                <ScalarProperty Name="RiskLevelID" ColumnName="RiskLevelID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="RiskID" ColumnName="RiskID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RiskStatus">
+            <EntityTypeMapping TypeName="ProjectManagementSystem.Models.RiskStatus">
+              <MappingFragment StoreEntitySet="RiskStatus">
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="RiskStatusID" ColumnName="RiskStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -498,7 +621,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

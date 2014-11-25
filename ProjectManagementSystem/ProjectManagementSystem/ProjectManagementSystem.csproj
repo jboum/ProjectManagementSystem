@@ -208,6 +208,13 @@
     <Compile Include="Models\Risk.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RiskLevel.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RiskModels.cs" />
+    <Compile Include="Models\RiskStatus.cs">
+      <DependentUpon>ProjectModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>

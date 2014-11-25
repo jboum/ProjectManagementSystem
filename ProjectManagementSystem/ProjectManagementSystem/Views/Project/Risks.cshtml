@@ -1,5 +1,5 @@
 ﻿@using ProjectManagementSystem.Models;
-@model IEnumerable<Risk>
+@model RiskModel
 
 @{
     ViewBag.Title = "Risks";
@@ -15,13 +15,15 @@
     <tr>
         <th>Risk</th>
         <th>Severity</th>
+        <th>Status</th>
         <th>Description</th>
     </tr>
-    @foreach (Risk risk in Model) {
+    @foreach (Risk risk in Model.Risks) {
         <tr>
-            <td>@risk.RiskName</td>
-            <td>@risk.RiskLevel</td>
-            <td>@risk.RiskDescription</td>
+            <td>@risk.Name</td>
+            <td>@risk.RiskLevel.LevelName</td>
+            <td>@risk.RiskStatus.StatusName</td>
+            <td>@risk.Description</td>
         </tr>
     }
 </table>
@@ -32,8 +34,8 @@
         <label for="DeleteRisk" class="col-sm-2 control-label">Risk:</label>
         <div class="col-sm-4">
             <select class="form-control" id="DeleteRisk" name="DeleteRisk">
-                @foreach (Risk risk in Model) {
-                    <option value=@Convert.ToString(risk.RiskID)>@risk.RiskName</option>
+                @foreach (Risk risk in Model.Risks) {
+                    <option value=@Convert.ToString(risk.RiskID)>@risk.Name</option>
                 }
             </select>
         </div>
@@ -61,11 +63,21 @@
     </div>
     <div class="form-group">
         <label for="RiskLevel" class="col-sm-2 control-label">Severity:</label>
-        <div class="col-sm-4">
-            <select class="form-control" id="RiskLevel" name="RiskLevel">
-                <option value="Low" selected="selected">Low</option>
-                <option value="Moderate">Moderate</option>
-                <option value="High">High</option>
+        <div class="col-sm-2">
+            <select class="form-control" id="RiskLevel" name="RiskLevelId">
+                @foreach (RiskLevel level in Model.Levels) {
+                    <option value=@level.RiskLevelID>@level.LevelName</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RiskStatus" class="col-sm-2 control-label">Status:</label>
+        <div class="col-sm-2">
+            <select class="form-control" id="RiskStatus" name="RiskStatusId">
+                @foreach (RiskStatus status in Model.Statuses) {
+                    <option value=@status.RiskStatusID>@status.StatusName</option>
+                }
             </select>
         </div>
     </div>
