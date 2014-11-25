@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Projectlayout.cshtml";
 
-    ViewBag.Title = "Time Details";
+    ViewBag.Title = "Time Totals";
 }
 
 @section SectionNav {
@@ -35,7 +35,7 @@
                 @foreach (Phase phase in phases) {
                     var timeResults = from time in queryModel where time.RequirementID == req.RequirementID && time.PhaseID == phase.PhaseID select time;
                     float total = (float) timeResults.Sum(time => time.Hours);
-                    <td>@total</td>
+                    <td>@string.Format("{0:F1}", total)</td>
                 }
             </tr>
         }

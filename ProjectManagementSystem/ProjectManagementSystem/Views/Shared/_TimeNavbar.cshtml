@@ -2,7 +2,7 @@
     <div class="container">
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Log Time", "", "", new { id = ViewBag.ProjectId }, null)</li>
+                <li>@Html.ActionLink("Log Time", "Index", "Time", new { id = ViewBag.ProjectId }, null)</li>
                 <li>@Html.ActionLink("Time Details", "TimeTotals", "Time", new { id = ViewBag.ProjectId }, null)</li>
                 
             </ul>
