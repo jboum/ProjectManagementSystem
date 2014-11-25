@@ -172,11 +172,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Member.cs">
+    <Compile Include="Models\Hour.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PerformPerRequirement.cs">
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Member.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Phase.cs">
@@ -211,6 +211,7 @@
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TimeModels.cs" />
     <Compile Include="Models\User.cs">
       <DependentUpon>ProjectModel.tt</DependentUpon>
     </Compile>

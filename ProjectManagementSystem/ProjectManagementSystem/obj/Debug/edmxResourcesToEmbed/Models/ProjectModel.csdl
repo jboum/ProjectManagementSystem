@@ -10,21 +10,6 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Phone_" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Project" Relationship="Self.FK_Member_Project" FromRole="Member" ToRole="Project" />
-    <NavigationProperty Name="PerformPerRequirements" Relationship="Self.FK_PerformPerRequirement_Member" FromRole="Member" ToRole="PerformPerRequirement" />
-  </EntityType>
-  <EntityType Name="PerformPerRequirement">
-    <Key>
-      <PropertyRef Name="RequirementID" />
-      <PropertyRef Name="MemberID" />
-      <PropertyRef Name="PhaseID" />
-    </Key>
-    <Property Name="RequirementID" Type="Int32" Nullable="false" />
-    <Property Name="MemberID" Type="Int32" Nullable="false" />
-    <Property Name="PhaseID" Type="Int32" Nullable="false" />
-    <Property Name="Hours" Type="Double" />
-    <NavigationProperty Name="Member" Relationship="Self.FK_PerformPerRequirement_Member" FromRole="PerformPerRequirement" ToRole="Member" />
-    <NavigationProperty Name="Phase" Relationship="Self.FK_PerformPerRequirement_Phase" FromRole="PerformPerRequirement" ToRole="Phase" />
-    <NavigationProperty Name="Requirement" Relationship="Self.FK_PerformPerRequirement_Requirement" FromRole="PerformPerRequirement" ToRole="Requirement" />
   </EntityType>
   <EntityType Name="Phase">
     <Key>
@@ -32,7 +17,7 @@
     </Key>
     <Property Name="PhaseID" Type="Int32" Nullable="false" />
     <Property Name="PhaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="PerformPerRequirements" Relationship="Self.FK_PerformPerRequirement_Phase" FromRole="Phase" ToRole="PerformPerRequirement" />
+    <NavigationProperty Name="Hours" Relationship="ProjectManagementSystem.Models.FK_Hours_ToPhase" FromRole="Phase" ToRole="Hour" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
@@ -55,9 +40,9 @@
     <Property Name="ProjectID" Type="Int32" Nullable="false" />
     <Property Name="RequirementType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="PerformPerRequirements" Relationship="Self.FK_PerformPerRequirement_Requirement" FromRole="Requirement" ToRole="PerformPerRequirement" />
     <NavigationProperty Name="Project" Relationship="Self.FK_Requirement_Project" FromRole="Requirement" ToRole="Project" />
     <Property Name="Number" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Hours" Relationship="ProjectManagementSystem.Models.FK_Hours_ToRequirement" FromRole="Requirement" ToRole="Hour" />
   </EntityType>
   <EntityType Name="Risk">
     <Key>
@@ -103,42 +88,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PerformPerRequirement_Member">
-    <End Role="Member" Type="Self.Member" Multiplicity="1" />
-    <End Role="PerformPerRequirement" Type="Self.PerformPerRequirement" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Member">
-        <PropertyRef Name="MemberID" />
-      </Principal>
-      <Dependent Role="PerformPerRequirement">
-        <PropertyRef Name="MemberID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PerformPerRequirement_Phase">
-    <End Role="Phase" Type="Self.Phase" Multiplicity="1" />
-    <End Role="PerformPerRequirement" Type="Self.PerformPerRequirement" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Phase">
-        <PropertyRef Name="PhaseID" />
-      </Principal>
-      <Dependent Role="PerformPerRequirement">
-        <PropertyRef Name="PhaseID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PerformPerRequirement_Requirement">
-    <End Role="Requirement" Type="Self.Requirement" Multiplicity="1" />
-    <End Role="PerformPerRequirement" Type="Self.PerformPerRequirement" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Requirement">
-        <PropertyRef Name="RequirementID" />
-      </Principal>
-      <Dependent Role="PerformPerRequirement">
-        <PropertyRef Name="RequirementID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Project_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
     <End Role="Project" Type="Self.Project" Multiplicity="*" />
@@ -179,7 +128,6 @@
   </Association>
   <EntityContainer Name="dbProjectMSEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Members" EntityType="Self.Member" />
-    <EntitySet Name="PerformPerRequirements" EntityType="Self.PerformPerRequirement" />
     <EntitySet Name="Phases" EntityType="Self.Phase" />
     <EntitySet Name="Projects" EntityType="Self.Project" />
     <EntitySet Name="Requirements" EntityType="Self.Requirement" />
@@ -189,18 +137,6 @@
     <AssociationSet Name="FK_Member_Project" Association="Self.FK_Member_Project">
       <End Role="Project" EntitySet="Projects" />
       <End Role="Member" EntitySet="Members" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PerformPerRequirement_Member" Association="Self.FK_PerformPerRequirement_Member">
-      <End Role="Member" EntitySet="Members" />
-      <End Role="PerformPerRequirement" EntitySet="PerformPerRequirements" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PerformPerRequirement_Phase" Association="Self.FK_PerformPerRequirement_Phase">
-      <End Role="Phase" EntitySet="Phases" />
-      <End Role="PerformPerRequirement" EntitySet="PerformPerRequirements" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PerformPerRequirement_Requirement" Association="Self.FK_PerformPerRequirement_Requirement">
-      <End Role="Requirement" EntitySet="Requirements" />
-      <End Role="PerformPerRequirement" EntitySet="PerformPerRequirements" />
     </AssociationSet>
     <AssociationSet Name="FK_Project_User" Association="Self.FK_Project_User">
       <End Role="User" EntitySet="Users" />
@@ -214,5 +150,53 @@
       <End Role="Project" EntitySet="Projects" />
       <End Role="Risk" EntitySet="Risks" />
     </AssociationSet>
+    <EntitySet Name="Hours" EntityType="ProjectManagementSystem.Models.Hour" />
+    <AssociationSet Name="FK_Hours_ToPhase" Association="ProjectManagementSystem.Models.FK_Hours_ToPhase">
+      <End Role="Phase" EntitySet="Phases" />
+      <End Role="Hour" EntitySet="Hours" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Hours_ToRequirement" Association="ProjectManagementSystem.Models.FK_Hours_ToRequirement">
+      <End Role="Requirement" EntitySet="Requirements" />
+      <End Role="Hour" EntitySet="Hours" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Hour">
+    <Key>
+      <PropertyRef Name="HoursID" />
+    </Key>
+    <Property Name="HoursID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequirementID" Type="Int32" Nullable="false" />
+    <Property Name="PhaseID" Type="Int32" Nullable="false" />
+    <Property Name="Hours" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Phase" Relationship="ProjectManagementSystem.Models.FK_Hours_ToPhase" FromRole="Hour" ToRole="Phase" />
+    <NavigationProperty Name="Requirement" Relationship="ProjectManagementSystem.Models.FK_Hours_ToRequirement" FromRole="Hour" ToRole="Requirement" />
+  </EntityType>
+  <Association Name="FK_Hours_ToPhase">
+    <End Type="ProjectManagementSystem.Models.Phase" Role="Phase" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ProjectManagementSystem.Models.Hour" Role="Hour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Phase">
+        <PropertyRef Name="PhaseID" />
+      </Principal>
+      <Dependent Role="Hour">
+        <PropertyRef Name="PhaseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Hours_ToRequirement">
+    <End Type="ProjectManagementSystem.Models.Requirement" Role="Requirement" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ProjectManagementSystem.Models.Hour" Role="Hour" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Requirement">
+        <PropertyRef Name="RequirementID" />
+      </Principal>
+      <Dependent Role="Hour">
+        <PropertyRef Name="RequirementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

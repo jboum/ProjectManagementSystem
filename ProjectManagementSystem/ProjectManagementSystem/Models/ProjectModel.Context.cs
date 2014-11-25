@@ -26,12 +26,12 @@ namespace ProjectManagementSystem.Models
         }
     
         public virtual DbSet<Member> Members { get; set; }
-        public virtual DbSet<PerformPerRequirement> PerformPerRequirements { get; set; }
         public virtual DbSet<Phase> Phases { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Requirement> Requirements { get; set; }
         public virtual DbSet<Risk> Risks { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Hour> Hours { get; set; }
     }
 }

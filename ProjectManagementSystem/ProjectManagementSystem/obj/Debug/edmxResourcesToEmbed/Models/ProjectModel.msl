@@ -12,16 +12,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PerformPerRequirements">
-      <EntityTypeMapping TypeName="ProjectManagementSystem.Models.PerformPerRequirement">
-        <MappingFragment StoreEntitySet="PerformPerRequirement">
-          <ScalarProperty Name="RequirementID" ColumnName="RequirementID" />
-          <ScalarProperty Name="MemberID" ColumnName="MemberID" />
-          <ScalarProperty Name="PhaseID" ColumnName="PhaseID" />
-          <ScalarProperty Name="Hours" ColumnName="Hours" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Phases">
       <EntityTypeMapping TypeName="ProjectManagementSystem.Models.Phase">
         <MappingFragment StoreEntitySet="Phase">
@@ -81,6 +71,16 @@
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Phone_" ColumnName="Phone#" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hours">
+      <EntityTypeMapping TypeName="ProjectManagementSystem.Models.Hour">
+        <MappingFragment StoreEntitySet="Hours">
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="PhaseID" ColumnName="PhaseID" />
+          <ScalarProperty Name="RequirementID" ColumnName="RequirementID" />
+          <ScalarProperty Name="HoursID" ColumnName="HoursID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

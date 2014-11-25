@@ -16,7 +16,7 @@ namespace ProjectManagementSystem.Models
     {
         public Requirement()
         {
-            this.PerformPerRequirements = new HashSet<PerformPerRequirement>();
+            this.Hours = new HashSet<Hour>();
         }
     
         public int RequirementID { get; set; }
@@ -25,7 +25,7 @@ namespace ProjectManagementSystem.Models
         public string Description { get; set; }
         public string Number { get; set; }
     
-        public virtual ICollection<PerformPerRequirement> PerformPerRequirements { get; set; }
         public virtual Project Project { get; set; }
+        public virtual ICollection<Hour> Hours { get; set; }
     }
 }

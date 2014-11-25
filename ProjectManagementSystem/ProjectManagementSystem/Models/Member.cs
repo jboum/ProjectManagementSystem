@@ -14,11 +14,6 @@ namespace ProjectManagementSystem.Models
     
     public partial class Member
     {
-        public Member()
-        {
-            this.PerformPerRequirements = new HashSet<PerformPerRequirement>();
-        }
-    
         public int MemberID { get; set; }
         public int ProjectID { get; set; }
         public string MemberName { get; set; }
@@ -26,6 +21,5 @@ namespace ProjectManagementSystem.Models
         public string Phone_ { get; set; }
     
         public virtual Project Project { get; set; }
-        public virtual ICollection<PerformPerRequirement> PerformPerRequirements { get; set; }
     }
 }

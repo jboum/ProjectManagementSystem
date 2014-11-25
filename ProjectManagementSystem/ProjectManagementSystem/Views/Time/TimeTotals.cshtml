@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ProjectManagementSystem.Models
+@model List<Hour>
+@{
     Layout = "~/Views/Shared/_Projectlayout.cshtml";
 
     ViewBag.Title = "Time Details";
@@ -8,19 +10,34 @@
     @Html.Partial("_TimeNavbar");
 }
 
-<div>
-    <table>
+@{
+    var queryModel = Model.AsQueryable();
+    List<Phase> phases = queryModel.Select<Hour, Phase>(time => time.Phase).Distinct().OrderBy(phase => phase.PhaseID).ToList();
+    List<Requirement> reqs = queryModel.Select<Hour, Requirement>(time => time.Requirement).Distinct().OrderBy(req => req.RequirementID).ToList();
+}
+
+<div class="container">
+    <table class="table">
         <tr>
-            <th> <label> Requirement N&deg; </label> </th>
-            <th> <label>Requirements Analysis </label></th>
-            <th> <label>Design </label></th>
-            <th> <label>Coding </label></th>
-            <th> <label>Testing </label></th>
-            <th> <label>Project Management</label> </th>
+            <th rowspan="2">Requirement</th>
+            <th colspan=@phases.Count>Phase</th>
+        </tr>
+        <tr>
+            @foreach (Phase phase in phases) {
+                <th>@phase.PhaseName</th>
+            }
         </tr>
 
-        <tr>
+        @foreach (Requirement req in reqs) {
+            <tr>
+                <td>@req.Number</td>
 
-        </tr>
+                @foreach (Phase phase in phases) {
+                    var timeResults = from time in queryModel where time.RequirementID == req.RequirementID && time.PhaseID == phase.PhaseID select time;
+                    float total = (float) timeResults.Sum(time => time.Hours);
+                    <td>@total</td>
+                }
+            </tr>
+        }
     </table>
 </div>

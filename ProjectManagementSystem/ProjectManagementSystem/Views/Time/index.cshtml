@@ -1,4 +1,7 @@
-﻿@{
+﻿@using ProjectManagementSystem.Models
+@model TimeCreateModel
+
+@{
     Layout = "~/Views/Shared/_Projectlayout.cshtml";
 
     ViewBag.Title = "Time Log";
@@ -8,40 +11,39 @@
     @Html.Partial("_TimeNavbar");
 }
 
-
+@using (Html.BeginForm("LogTime", "Time", new { id = ViewBag.ProjectId }, FormMethod.Post, new { @class = "form-horizontal" })) {
+    <h3>Log Time</h3>
     <div class="form-group">
-    <table>
-        <tr>
-            <td> <label class="col-sm-2 control-label"> Phase</label></td>
-            <td>
-                <select class=" form-control" ">
-                    <option> Requirements Analysis  </option>
-                    <option> Design</option>
-                    <option> Coding </option>
-                    <option> Testing </option>
-                    <option> Project Management </option>
-                </select>
-            </td>
+        <label for="RequirementNumber" class="col-sm-2 control-label"> Requirement Number:</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="RequirementNumber" name="RequirementId">
+                @foreach (Requirement req in Model.Requirements) {
+                    <option value=@req.RequirementID>@req.Number</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-offset-2">
+        @foreach (Phase phase in Model.Phases) {
+            <div class="radio">
+                <label>
+                    @Html.RadioButton("PhaseId", phase.PhaseID, false, new { @class = "form-control" })
+                    @phase.PhaseName
+                </label>
+            </div>
+        }
 
-        </tr>
-        <tr>
-            <td> <label class="col-sm-2 control-label"> Requirement N&deg;</label></td>
-            <td>
-                <select class="form-control">
-                    <option> 1</option>
-                    <option> 2</option>
-                    <option> 3</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td> <label class="col-sm-2 control-label"> Hours Spent</label></td>
-            <td> <input type="text" name="hours" class="form-control" /></td>
-        </tr>
-
-        <tr>
-            <td colspan="2"> <button type="submit" class="form-control"> Log </button> </td>
-        </tr>
-    </table>
-</div>
+    </div>
+    <div class="form-group">
+        <label for="Hours" class="control-label col-sm-2">Hours:</label>
+        <div class="col-sm-8">
+            <input type="text" id="Hours" name="Hours" placeholder="0" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-2 col-sm-offset-1">
+            <button type="submit" class="form-control" name="SubmitAdd">Create</button>
+        </div>
+    </div>
+}
 
