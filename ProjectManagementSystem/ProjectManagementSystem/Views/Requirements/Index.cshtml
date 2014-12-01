@@ -25,7 +25,11 @@
 <h3>Delete a Requirement</h3>
 @using (Html.BeginForm("Delete", "Requirements", null, FormMethod.Post, new { @class = "form-horizontal" })) {
     <div class="form-group">
+<<<<<<< HEAD
         <label for="DeleteRequirement" class="col-sm-2 control-label">Requirement:</label>
+=======
+        <label for="DeleteRequirement" class="col-sm-2 control-label">Requirement Number:</label>
+>>>>>>> origin/master
         <div class="col-sm-4">
             <select class="form-control" id="DeleteRequirement" name="DeleteRequirement">
                 @foreach (Requirement req in Model) {
