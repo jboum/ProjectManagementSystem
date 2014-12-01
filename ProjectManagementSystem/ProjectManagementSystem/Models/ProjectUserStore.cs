@@ -28,7 +28,9 @@ namespace ProjectManagementSystem.Models {
             }
 
             projectDb.Users.Add(dbUser);
-            return projectDb.SaveChangesAsync();
+            projectDb.SaveChanges();
+            user.Id = dbUser.UserID;
+            return Task.FromResult<object>(null);
         }
 
         public Task DeleteAsync(ProjectManagerUser user) {
